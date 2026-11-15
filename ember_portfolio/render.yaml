@@ -1,0 +1,24 @@
+# Render Blueprint for the FastAPI portfolio (free plan).
+# Secrets marked sync:false are typed into the Render dashboard, never stored in Git.
+services:
+  - type: web
+    name: sri-lochana-portfolio
+    runtime: python
+    plan: free
+    rootDir: ember_portfolio
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: EMAIL_METHOD
+        value: api
+      - key: RESEND_API_KEY
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: MAIL_TO
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
